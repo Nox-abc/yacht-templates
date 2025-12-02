@@ -1,0 +1,632 @@
+[
+  {
+    "type": 1,
+    "title": "Python Bot (Discord/Custom)",
+    "name": "python-bot",
+    "description": "Container Python pour bots Discord, scripts automatisés, ou applications Python",
+    "logo": "https://www.python.org/static/community_logos/python-logo.png",
+    "image": "python:3.11-slim",
+    "categories": ["Bots", "Development"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "command": "sh -c \"pip install discord.py requests && python /app/main.py\"",
+    "volumes": [
+      {
+        "container": "/app",
+        "bind": "!apps/python-bot"
+      }
+    ],
+    "env": [
+      {
+        "name": "DISCORD_TOKEN",
+        "label": "DISCORD_TOKEN",
+        "default": ""
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Node.js Bot/App",
+    "name": "nodejs-app",
+    "description": "Container Node.js pour bots Discord, serveurs web, ou applications JavaScript",
+    "logo": "https://nodejs.org/static/images/logo.svg",
+    "image": "node:18-slim",
+    "categories": ["Bots", "Development", "Web"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "command": "sh -c \"npm install && node /app/index.js\"",
+    "ports": [
+      {
+        "App": "3000:3000/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/app",
+        "bind": "!apps/nodejs-app"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Minecraft Server (Java)",
+    "name": "minecraft-java",
+    "description": "Serveur Minecraft Java Edition avec configuration automatique",
+    "logo": "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-logo.svg",
+    "image": "itzg/minecraft-server:latest",
+    "categories": ["Games"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "Minecraft": "25565:25565/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/data",
+        "bind": "!games/minecraft"
+      }
+    ],
+    "env": [
+      {
+        "name": "EULA",
+        "label": "EULA",
+        "default": "TRUE"
+      },
+      {
+        "name": "VERSION",
+        "label": "VERSION",
+        "default": "LATEST"
+      },
+      {
+        "name": "MEMORY",
+        "label": "MEMORY",
+        "default": "2G"
+      },
+      {
+        "name": "TYPE",
+        "label": "TYPE",
+        "default": "VANILLA"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Minecraft Bedrock Server",
+    "name": "minecraft-bedrock",
+    "description": "Serveur Minecraft Bedrock Edition (mobile/console)",
+    "logo": "https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/minecraft-logo.svg",
+    "image": "itzg/minecraft-bedrock-server:latest",
+    "categories": ["Games"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "Bedrock": "19132:19132/udp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/data",
+        "bind": "!games/minecraft-bedrock"
+      }
+    ],
+    "env": [
+      {
+        "name": "EULA",
+        "label": "EULA",
+        "default": "TRUE"
+      },
+      {
+        "name": "SERVER_NAME",
+        "label": "SERVER_NAME",
+        "default": "My Bedrock Server"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Terraria Server",
+    "name": "terraria",
+    "description": "Serveur Terraria dédié",
+    "logo": "https://terraria.org/images/terraria-logo.png",
+    "image": "ryshe/terraria:latest",
+    "categories": ["Games"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "Terraria": "7777:7777/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/root/.local/share/Terraria/Worlds",
+        "bind": "!games/terraria"
+      }
+    ],
+    "env": [
+      {
+        "name": "WORLD_FILENAME",
+        "label": "WORLD_FILENAME",
+        "default": "world.wld"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Valheim Server",
+    "name": "valheim",
+    "description": "Serveur Valheim dédié",
+    "logo": "https://cdn.akamai.steamstatic.com/steam/apps/892970/header.jpg",
+    "image": "lloesche/valheim-server:latest",
+    "categories": ["Games"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "Game": "2456:2456/udp",
+        "Game+1": "2457:2457/udp",
+        "Game+2": "2458:2458/udp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/config",
+        "bind": "!games/valheim/config"
+      },
+      {
+        "container": "/opt/valheim",
+        "bind": "!games/valheim/data"
+      }
+    ],
+    "env": [
+      {
+        "name": "SERVER_NAME",
+        "label": "SERVER_NAME",
+        "default": "My Valheim Server"
+      },
+      {
+        "name": "WORLD_NAME",
+        "label": "WORLD_NAME",
+        "default": "Dedicated"
+      },
+      {
+        "name": "SERVER_PASS",
+        "label": "SERVER_PASS",
+        "default": "secret"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "CS:GO Server",
+    "name": "csgo",
+    "description": "Serveur Counter-Strike: Global Offensive",
+    "logo": "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg",
+    "image": "cm2network/csgo:latest",
+    "categories": ["Games"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "Game": "27015:27015/tcp",
+        "Game UDP": "27015:27015/udp",
+        "SourceTV": "27020:27020/udp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/home/steam/csgo-dedicated",
+        "bind": "!games/csgo"
+      }
+    ],
+    "env": [
+      {
+        "name": "SRCDS_TOKEN",
+        "label": "SRCDS_TOKEN",
+        "default": ""
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Satisfactory Server",
+    "name": "satisfactory",
+    "description": "Serveur Satisfactory dédié",
+    "logo": "https://cdn.akamai.steamstatic.com/steam/apps/526870/header.jpg",
+    "image": "wolveix/satisfactory-server:latest",
+    "categories": ["Games"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "Game": "7777:7777/udp",
+        "Query": "15000:15000/udp",
+        "Beacon": "15777:15777/udp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/config",
+        "bind": "!games/satisfactory"
+      }
+    ],
+    "env": [
+      {
+        "name": "MAXPLAYERS",
+        "label": "MAXPLAYERS",
+        "default": "4"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Palworld Server",
+    "name": "palworld",
+    "description": "Serveur Palworld dédié",
+    "logo": "https://cdn.akamai.steamstatic.com/steam/apps/1623730/header.jpg",
+    "image": "thijsvanloef/palworld-server-docker:latest",
+    "categories": ["Games"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "Game": "8211:8211/udp",
+        "RCON": "25575:25575/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/palworld",
+        "bind": "!games/palworld"
+      }
+    ],
+    "env": [
+      {
+        "name": "PLAYERS",
+        "label": "PLAYERS",
+        "default": "16"
+      },
+      {
+        "name": "SERVER_NAME",
+        "label": "SERVER_NAME",
+        "default": "My Palworld Server"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "MongoDB",
+    "name": "mongodb",
+    "description": "Base de données NoSQL MongoDB",
+    "logo": "https://www.mongodb.com/assets/images/global/favicon.ico",
+    "image": "mongo:latest",
+    "categories": ["Database"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "MongoDB": "27017:27017/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/data/db",
+        "bind": "!databases/mongodb"
+      }
+    ],
+    "env": [
+      {
+        "name": "MONGO_INITDB_ROOT_USERNAME",
+        "label": "MONGO_INITDB_ROOT_USERNAME",
+        "default": "admin"
+      },
+      {
+        "name": "MONGO_INITDB_ROOT_PASSWORD",
+        "label": "MONGO_INITDB_ROOT_PASSWORD",
+        "default": "password"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Redis",
+    "name": "redis",
+    "description": "Base de données en mémoire Redis",
+    "logo": "https://redis.io/images/redis-white.png",
+    "image": "redis:alpine",
+    "categories": ["Database"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "Redis": "6379:6379/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/data",
+        "bind": "!databases/redis"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "PostgreSQL",
+    "name": "postgres",
+    "description": "Base de données PostgreSQL",
+    "logo": "https://www.postgresql.org/media/img/about/press/elephant.png",
+    "image": "postgres:15-alpine",
+    "categories": ["Database"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "PostgreSQL": "5432:5432/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/var/lib/postgresql/data",
+        "bind": "!databases/postgres"
+      }
+    ],
+    "env": [
+      {
+        "name": "POSTGRES_USER",
+        "label": "POSTGRES_USER",
+        "default": "postgres"
+      },
+      {
+        "name": "POSTGRES_PASSWORD",
+        "label": "POSTGRES_PASSWORD",
+        "default": "password"
+      },
+      {
+        "name": "POSTGRES_DB",
+        "label": "POSTGRES_DB",
+        "default": "mydb"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Uptime Kuma",
+    "name": "uptime-kuma",
+    "description": "Monitoring de disponibilité pour sites web et services",
+    "logo": "https://uptime.kuma.pet/img/icon.svg",
+    "image": "louislam/uptime-kuma:latest",
+    "categories": ["Monitoring", "Tools"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "WebUI": "3001:3001/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/app/data",
+        "bind": "!config/uptime-kuma"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Gitea",
+    "name": "gitea",
+    "description": "Serveur Git auto-hébergé léger",
+    "logo": "https://gitea.io/images/gitea.png",
+    "image": "gitea/gitea:latest",
+    "categories": ["Development", "Tools"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "WebUI": "3000:3000/tcp",
+        "SSH": "222:22/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/data",
+        "bind": "!config/gitea"
+      }
+    ],
+    "env": [
+      {
+        "name": "USER_UID",
+        "label": "USER_UID",
+        "default": "1000"
+      },
+      {
+        "name": "USER_GID",
+        "label": "USER_GID",
+        "default": "1000"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Nextcloud",
+    "name": "nextcloud",
+    "description": "Suite collaborative et stockage cloud auto-hébergé",
+    "logo": "https://nextcloud.com/media/nextcloud-logo-inverted.svg",
+    "image": "nextcloud:latest",
+    "categories": ["Cloud", "Productivity"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "WebUI": "8080:80/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/var/www/html",
+        "bind": "!cloud/nextcloud"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Wordpress",
+    "name": "wordpress",
+    "description": "CMS Wordpress pour créer des sites web",
+    "logo": "https://s.w.org/style/images/about/WordPress-logotype-wmark.png",
+    "image": "wordpress:latest",
+    "categories": ["Web"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "WebUI": "8080:80/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/var/www/html",
+        "bind": "!web/wordpress"
+      }
+    ],
+    "env": [
+      {
+        "name": "WORDPRESS_DB_HOST",
+        "label": "WORDPRESS_DB_HOST",
+        "default": "db:3306"
+      },
+      {
+        "name": "WORDPRESS_DB_USER",
+        "label": "WORDPRESS_DB_USER",
+        "default": "wordpress"
+      },
+      {
+        "name": "WORDPRESS_DB_PASSWORD",
+        "label": "WORDPRESS_DB_PASSWORD",
+        "default": "password"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Nginx",
+    "name": "nginx-simple",
+    "description": "Serveur web Nginx simple",
+    "logo": "https://nginx.org/nginx.png",
+    "image": "nginx:alpine",
+    "categories": ["Web"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "HTTP": "8080:80/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/usr/share/nginx/html",
+        "bind": "!web/nginx"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Portainer",
+    "name": "portainer",
+    "description": "Interface de gestion Docker (alternative à Yacht)",
+    "logo": "https://www.portainer.io/hubfs/portainer-logo-black.svg",
+    "image": "portainer/portainer-ce:latest",
+    "categories": ["Management"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "WebUI": "9000:9000/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/var/run/docker.sock",
+        "bind": "/var/run/docker.sock"
+      },
+      {
+        "container": "/data",
+        "bind": "!config/portainer"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "VS Code Server",
+    "name": "code-server-custom",
+    "description": "VS Code dans le navigateur pour coder n'importe où",
+    "logo": "https://code.visualstudio.com/assets/images/code-stable.png",
+    "image": "codercom/code-server:latest",
+    "categories": ["Development"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "WebUI": "8443:8080/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/home/coder/project",
+        "bind": "!projects"
+      },
+      {
+        "container": "/home/coder/.config",
+        "bind": "!config/code-server"
+      }
+    ],
+    "env": [
+      {
+        "name": "PASSWORD",
+        "label": "PASSWORD",
+        "default": "password"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "title": "Bookstack",
+    "name": "bookstack",
+    "description": "Plateforme wiki pour organiser ta documentation",
+    "logo": "https://www.bookstackapp.com/images/logo-text.svg",
+    "image": "lscr.io/linuxserver/bookstack:latest",
+    "categories": ["Documentation", "Tools"],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "WebUI": "6875:80/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/config",
+        "bind": "!config/bookstack"
+      }
+    ],
+    "env": [
+      {
+        "name": "PUID",
+        "label": "PUID",
+        "default": "1000"
+      },
+      {
+        "name": "PGID",
+        "label": "PGID",
+        "default": "1000"
+      },
+      {
+        "name": "APP_URL",
+        "label": "APP_URL",
+        "default": "http://localhost:6875"
+      }
+    ]
+  }
+]
