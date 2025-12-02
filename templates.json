@@ -7025,62 +7025,9 @@
   },
   {
     "type": 1,
-    "title": "Syncthing",
-    "name": "syncthing-new",
-    "description": "A continuous file synchronization program. Synchronize files between two or more computers in real time.",
-    "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/syncthing.png",
-    "image": "lscr.io/linuxserver/syncthing:latest",
-    "categories": [
-      "Backup",
-      "Cloud",
-      "Sync"
-    ],
-    "platform": "linux",
-    "restart_policy": "unless-stopped",
-    "ports": [
-      {
-        "WebUI": "8384:8384/tcp"
-      },
-      {
-        "Transfer": "22000:22000/tcp"
-      },
-      {
-        "Discovery": "21027:21027/udp"
-      }
-    ],
-    "volumes": [
-      {
-        "container": "/config",
-        "bind": "!config/Syncthing"
-      },
-      {
-        "container": "/data1",
-        "bind": "!data/Syncthing"
-      }
-    ],
-    "env": [
-      {
-        "name": "PUID",
-        "label": "PUID",
-        "default": "!PUID"
-      },
-      {
-        "name": "PGID",
-        "label": "PGID",
-        "default": "!PGID"
-      },
-      {
-        "name": "TZ",
-        "label": "TZ",
-        "default": "!TZ"
-      }
-    ]
-  },
-  {
-    "type": 1,
-    "title": "Nginx Proxy Manager (Full)",
+    "title": "Nginx Proxy Manager (Official)",
     "name": "nginx-proxy-manager-full",
-    "description": "Easy to use reverse proxy with SSL support. Expose your services with Let's Encrypt certificates.",
+    "description": "Official Nginx Proxy Manager - Easy to use reverse proxy with SSL support. Expose your services with Let's Encrypt certificates. This uses the official jc21 image.",
     "logo": "https://nginxproxymanager.com/icon.png",
     "image": "jc21/nginx-proxy-manager:latest",
     "categories": [
@@ -7111,7 +7058,7 @@
         "bind": "!config/NginxProxyManager/letsencrypt"
       }
     ],
-    "note": "Default login is admin@example.com / changeme"
+    "note": "Default login is admin@example.com / changeme. This is the official jc21 image, different from the jlesage variant."
   },
   {
     "type": 1,
@@ -8028,5 +7975,71 @@
       }
     ],
     "note": "Generate APP_KEY with: docker exec speedtest-tracker php artisan key:generate --show"
+  },
+  {
+    "type": 1,
+    "title": "Authentik",
+    "name": "authentik",
+    "description": "An open-source Identity Provider focused on flexibility and versatility. Modern SSO, user management, and access control.",
+    "logo": "https://raw.githubusercontent.com/goauthentik/authentik/main/web/icons/icon.png",
+    "image": "ghcr.io/goauthentik/server:latest",
+    "categories": [
+      "Security",
+      "Authentication",
+      "Tools"
+    ],
+    "platform": "linux",
+    "restart_policy": "unless-stopped",
+    "ports": [
+      {
+        "HTTP": "9000:9000/tcp"
+      },
+      {
+        "HTTPS": "9443:9443/tcp"
+      }
+    ],
+    "volumes": [
+      {
+        "container": "/media",
+        "bind": "!config/Authentik/media"
+      },
+      {
+        "container": "/templates",
+        "bind": "!config/Authentik/templates"
+      }
+    ],
+    "env": [
+      {
+        "name": "AUTHENTIK_SECRET_KEY",
+        "label": "SECRET_KEY",
+        "default": "generate-a-random-secret"
+      },
+      {
+        "name": "AUTHENTIK_REDIS__HOST",
+        "label": "REDIS_HOST",
+        "default": "redis"
+      },
+      {
+        "name": "AUTHENTIK_POSTGRESQL__HOST",
+        "label": "PG_HOST",
+        "default": "postgresql"
+      },
+      {
+        "name": "AUTHENTIK_POSTGRESQL__USER",
+        "label": "PG_USER",
+        "default": "authentik"
+      },
+      {
+        "name": "AUTHENTIK_POSTGRESQL__NAME",
+        "label": "PG_NAME",
+        "default": "authentik"
+      },
+      {
+        "name": "AUTHENTIK_POSTGRESQL__PASSWORD",
+        "label": "PG_PASSWORD",
+        "default": "authentik"
+      }
+    ],
+    "note": "Requires PostgreSQL and Redis. Run 'docker exec -it authentik ak create_recovery_key 10 akadmin' to create admin access."
   }
 ]
